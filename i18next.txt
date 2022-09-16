@@ -1,0 +1,63 @@
+index.js
+
+
+
+import i18n from "i18next"; // npm i i18next
+import { initReactI18next } from "react-i18next" // npm i react-i18next;
+import translationsEn from "./i18n/locales/en";
+import translationsRu from "./i18n/locales/ru";
+import translationsAm from "./i18n/locales/am";
+
+
+let language = localStorage.getItem("lang");
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: translationsEn },
+    ru: { translation: translationsRu },
+    am: { translation: translationsAm },
+  },
+  lng: language,
+  fallbackLng: "en",
+  interpolation: { escapeValue: false },
+});
+
+
+
+
+header.js
+
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+
+
+
+  const { t, i18n } = useTranslation();
+
+  const onChange = (event) => {
+    i18next.changeLanguage(event.target.value);
+    localStorage.setItem("lang", event.target.value);
+  };
+
+
+
+
+
+ <li>
+              <select
+                className="form-select form-select-sm ms-5"
+                aria-label=".form-select-sm example"
+                name="language"
+                onChange={onChange}
+              >
+                <option selected={"en" == i18n.language} value="en">
+                  Eng
+                </option>
+                <option selected={"am" == i18n.language} value="am">
+                  Arm
+                </option>
+                <option selected={"ru" == i18n.language} value="ru">
+                  Rus
+                </option>
+              </select>
+            </li>
